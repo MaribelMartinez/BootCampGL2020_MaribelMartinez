@@ -49,7 +49,7 @@ public class Empleado extends Persona{
 		Empleado.importeHoraExtra = horaExtra;
 	}
 
-	private Double calculoHoraExtra() {
+	public Double calculoHoraExtra() {
 		return importeHoraExtra * this.horasExtra;
 	}
 	

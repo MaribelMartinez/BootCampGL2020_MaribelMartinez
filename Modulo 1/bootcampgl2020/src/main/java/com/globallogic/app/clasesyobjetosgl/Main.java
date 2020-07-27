@@ -2,7 +2,8 @@ package com.globallogic.app.clasesyobjetosgl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -33,22 +34,55 @@ public class Main {
 			System.out.println("La cantidad debe ser entre 1 y 20");
 			cantidad = entrada.nextInt();
 		}
-		List<Empleado> empleados = new ArrayList(Arrays.asList(new Empleado[cantidad]));
-		Empleado empl = new Empleado();
+		ArrayList<Empleado> empleados = new ArrayList<Empleado>(Arrays.asList(new Empleado[cantidad]));
+		ArrayList<Empleado> empl = new ArrayList<Empleado>();
+		System.out.println("Ingrese pago por horas extras");
+		Empleado.setHoraExtra(entrada.nextInt());
+		System.out.println("La hora extra del empleado es de: " + Empleado.getHoraExtra());
 		for(Empleado empleado : empleados) {
 			empleado = new Empleado();
-			System.out.println("Ingrese pago por horas extras");
-			Empleado.setHoraExtra(entrada.nextInt());
-			System.out.println("La hora extra del empleado es de:" + Empleado.getHoraExtra());
-			System.out.println("Ingrese sueldo del empleado");
+			System.out.println("Ingrese nombre del empleado");
+			String nombre = entrada.next();
+			empleado.setNombre(nombre);
+			System.out.println("Ingrese sueldo del empleado " + nombre);
 			Double sueldo = (double) entrada.nextInt();
 			empleado.setSueldoBase(sueldo);
-			empl = empleado;
+			System.out.println("Ingrese horas extras del empleado" + nombre);
+			Integer horasExtras = entrada.nextInt();
+			empleado.setHorasExtra(horasExtras);
+			empleado.calculoHoraExtra();
+			empleado.setCasado(false);
+			empleado.setNumeroHijos(0);
+			empleado.setRetenciones(0.0);
+			empl.add(empleado);
+			
 		}
-		empleados.add(empl);
+		empleados = empl;
+		entrada.close();
+		 empleados.sort(
+			      (Empleado empl1, Empleado empl2) -> empl1.sueldoBruto().
+			      compareTo(empl2.sueldoBruto()));
+		 //Empleado que mas cobra
+		  System.out.println("Empleado que mas cobra: "+empleados.get(cantidad-1));
+		  //Empleado que menos cobra
+		  System.out.println("Empleado que menos cobra: "+empleados.get(0));
 		
+		//Ordenados por sueldo		
+			  System.out.println("Empleados ordenados por sueldo de menor a mayor \n"+empleados);
+			  
+			  empleados.sort(
+				      (Empleado empl1, Empleado empl2) -> empl1.calculoHoraExtra().
+				      compareTo(empl2.calculoHoraExtra()));
+		//Empleado que cobra mas por hora extra
+		  System.out.println("Empleado que mas cobra por hora extra: "+empleados.get(cantidad-1));
+		//Empleado que cobra menos por hora extra
+		  System.out.println("Empleado que menos cobra por hora extra: "+empleados.get(0));
+			
 		
 	}
+	
+	
+	
 		
 	
 }
