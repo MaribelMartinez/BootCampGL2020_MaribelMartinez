@@ -6,6 +6,7 @@ package mockito.example.services;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,11 +17,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import mockito.example.exceptions.ZeroDivisionException;
 import mockito.example.services.impl.CalculatorServiceImpl;
-import net.bytebuddy.build.HashCodeAndEqualsPlugin.ValueHandling;
 
 @ExtendWith(MockitoExtension.class)
 public class CalculatorServiceTest {
@@ -76,13 +77,15 @@ public class CalculatorServiceTest {
 		assertThrows(NullPointerException.class, () -> calculatorServiceImpl.calculateAverage());
 	}
 
-/*	@Test
-	@DisplayName("Ejercicio 3.6")
-	void calculoDataService3() {
-		when(basicOperationsService.divide(1, 0)).thenThrow(new ZeroDivisionException("No se puede dividir por 0"));
-		assertThrows(ZeroDivisionException.class, () -> calculatorServiceImpl.calculateDivision(1, 0));
-	}
-	*/
+	/*
+	 * @Test
+	 * 
+	 * @DisplayName("Ejercicio 3.6") void calculoDataService3() {
+	 * when(basicOperationsService.divide(1, 0)).thenThrow(new
+	 * ZeroDivisionException("No se puede dividir por 0"));
+	 * assertThrows(ZeroDivisionException.class, () ->
+	 * calculatorServiceImpl.calculateDivision(1, 0)); }
+	 */
 
 	@Test
 	@DisplayName("Ejercicio 3.7")
@@ -91,14 +94,34 @@ public class CalculatorServiceTest {
 		assertEquals("El resultado es: 5.0",
 				calculatorServiceImpl.printResult(calculatorServiceImpl.calculateSum(input1, input2)));
 	}
-	
-	
+
 	@ParameterizedTest
-	@ValueSource(ints = {1,2,3})
+	@ValueSource(ints = { 1, 2, 3 })
 	void calculoDataService6(int numero) {
 		assertTrue(calculatorServiceImpl.isOdd(numero));
 	}
-	
-	
 
+	@Spy
+	BasicOperationsService basicOperationsServiceSpy;
+
+	@Test
+	@DisplayName("Ejercicio 3.9")
+	void calculoDataService7() {
+		basicOperationsServiceSpy.add(input1, input2);
+		Mockito.verify(basicOperationsServiceSpy, times(1)).add(input1, input2);
+	}
+
+	@Spy
+	DataService dataServiceSpy;
+
+	@Test
+	@DisplayName("Ejercicio 3.10")
+	void calculoDataService8() {
+		int[] num = { 1, 2, 3, 4 };
+		int[] num2 = { 1, 2, 3 };
+		calculatorServiceImpl.setListOfNumbers(num2);
+		Mockito.when(dataServiceSpy.getListOfNumbers()).thenReturn(num);
+		assertEquals(4, dataServiceSpy.getListOfNumbers().length);
+		Mockito.verify(dataServiceSpy, times(1)).getListOfNumbers();
+	}
 }

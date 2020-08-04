@@ -8,9 +8,10 @@ import mockito.example.services.BasicOperationsService;
 import mockito.example.services.CalculatorService;
 import mockito.example.services.DataService;
 
-public class CalculatorServiceImpl implements CalculatorService {
+public class CalculatorServiceImpl implements CalculatorService, DataService {
 	private DataService dataService;
 	private BasicOperationsService basicOperationsService;
+	private int[] listOfNumbers;
 
 	public void setDataService(DataService dataService) {
 		this.dataService = dataService;
@@ -31,7 +32,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 	}
 
 	@Override
-	public double calculateDivision(int a, int b) {
+	public double calculateDivision(int a, int b){
 		try {
 			if (b == 0) {
 				throw new ZeroDivisionException("No se puede dividir por 0");
@@ -74,6 +75,15 @@ public class CalculatorServiceImpl implements CalculatorService {
 		String textToDisplay = "El resultado es: " + result;
 		System.out.print(textToDisplay);
 		return textToDisplay;
+	}
+
+	public void setListOfNumbers(int[] listOfNumbers) {
+		this.listOfNumbers = listOfNumbers;
+	}
+	
+	@Override
+	public int[] getListOfNumbers() {
+		return listOfNumbers;
 	}
 
 }
