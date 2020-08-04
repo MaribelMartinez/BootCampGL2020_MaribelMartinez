@@ -1,49 +1,57 @@
 package coverage.example.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class StarTest {
 	
-	Star star = new Star();
-	List<Planet> planets = new ArrayList<>();
+	private static Star star;
+	private static List<Planet> planets; 
 	
-	@Test
-	void testStart() {
-		new Star();
-	}
-	
-	@Test
-	void testToString() {
-		star.toString();
+	@BeforeAll
+	static void setUp() {
+		star = new Star();
+		planets = new ArrayList<Planet>();
 	}
 
 	@Test
+	@DisplayName("setName")
 	void testSetName() {
 		star.setName("Star");
+		assertEquals("Star", star.getName());
+		assertNotNull(star.getName());
 	}
-	
+
 	@Test
-	void testGetName() {
-		star.getName();
-	}
-	
-	@Test
-	void testSetPlanets() {
-		star.setPlanets(planets);
-	}
-	
-	@Test
+	@DisplayName("setPlanets")
 	void testGetPlanets() {
-		star.getPlanets();
+		Planet planet = new Planet();
+		planet.setName("planet1");
+		planets.add(planet);
+		star.setPlanets(planets);
+		assertNotNull(star.getPlanets());
+	}
+
+	@Test
+	@DisplayName("getColor")
+	void testGetColor() {
+		assertNull(star.getColor());
 	}
 	
 	@Test
-	void testGetColor() {
-		star.getColor();
+	@DisplayName("toString")
+	void testToString() {
+		
+		assertEquals("Star [name=" + star.getName() + ", planets=" + star.getPlanets() + "]", star.toString());
+		;
 	}
-	
+
 }

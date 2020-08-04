@@ -7,7 +7,7 @@ public class Loteria {
 	private int boletos;
 	private int ganadores;
 	private CartonGenerator cartonGenerator;
-	
+
 	
 	public Loteria(float pozo, int boletos, CartonGenerator cartonGenerator) {
 		this.pozo = pozo;

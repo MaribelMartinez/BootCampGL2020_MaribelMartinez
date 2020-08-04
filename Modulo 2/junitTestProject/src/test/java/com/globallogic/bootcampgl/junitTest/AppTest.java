@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ public class AppTest {
 	private App app;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		hola1 = "Hola";
 		hola2 = "Hola";
 		hola3 = "Hol";
@@ -29,33 +30,33 @@ public class AppTest {
 	}
 
 	@AfterEach
-	public void setValue() {
+	void setValue() {
 		value = (long) 1;
 	}
 
 	@Test
 	@DisplayName("Ejercicio 1.1")
-	public void test() {
+	void test() {
 		assertEquals("Test", "Test");
 	}
 
 	@Test
 	@DisplayName("Ejercicio 1.2")
-	public void test2() {
+	void test2() {
 		assertEquals(hola1, hola3);
 		assertEquals(hola2, hola3);
 	}
 
 	@Test
 	@DisplayName("Ejercicio 1.3")
-	public void test3() {
+	void test3() {
 		assertTrue(25 < 12);
 		assertTrue(25 > 27);
 	}
 
 	@Test
 	@DisplayName("Ejercicio 1.4")
-	public void test4() {
+	void test4() {
 		assertNotNull(value);
 		value = (long) 1;
 		assertNull(value);
@@ -63,21 +64,26 @@ public class AppTest {
 
 	@Test
 	@DisplayName("Ejercicio 1.6")
-	public void test5() {
+	void test5() {
 		assertEquals((Integer) 4, app.suma(2, 2));
-		assertEquals((Integer) 3, app.suma(2, 2));
-	}
-	
-	@AfterEach
-	public void after() {
-		System.out.print("Esta variable no es false");
 	}
 	
 	@Test
-	@DisplayName("Ejercicio 1.7")
-	public void test6() {
-		assertTrue(app.iteracion(3));
-		assertFalse(app.iteracion(2));
+	@DisplayName("Ejercicio 1.6 incorrecto")
+	void test6() {
+	   assertEquals((Integer) 3, app.suma(2, 2), "El resultado esta mal") ;
+	}
+
+	@Test
+	@DisplayName("Ejercicio 1.7 true")
+	void test7() {
+		assertTrue(app.iteracion(4), "Esta variable no es true");
+	}
+	
+	@Test
+	@DisplayName("Ejercicio 1.7 false")
+	void test8() {
+		assertFalse(app.iteracion(3), "Esta variable no es false");
 	}
 
 }
