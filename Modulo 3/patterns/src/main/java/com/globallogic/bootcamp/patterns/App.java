@@ -1,13 +1,18 @@
 package com.globallogic.bootcamp.patterns;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+public class App {
+	public static void main(String[] args) {
+		
+		Game game = new Game();
+		game.setTittle("Resident Evil");
+		Playstation playstation = new Playstation(game);
+		System.out.println(playstation.askMyGame());
+
+		game.setTittle("Bawlhalla");
+		playstation.setVideogame(game);
+		System.out.println(playstation.askMyGame());
+
+		playstation.setVideogame(null);
+		System.out.println(playstation.askMyGame());
+	}
 }
