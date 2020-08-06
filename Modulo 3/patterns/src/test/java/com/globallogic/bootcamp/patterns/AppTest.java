@@ -21,5 +21,17 @@ public class AppTest {
 		Order order2 = new Order("desc2", 10.0);
 		
 		assertEquals(order1.getCurrency(), order2.getCurrency());
+		assertEquals(order1.getCurrency().getName(), order2.getCurrency().getName());
+	}
+	
+	@Test
+	@DisplayName("Ejercicio 1.4")
+	void testPRoduct() {
+		Order order1 = new Order("desc1", 9.0);
+		Order order2 = new Order("desc2", 10.0);
+		
+		assertEquals(order1.getProduct(), order2.getProduct());
+		assertEquals(order1.getProduct().getName(), order2.getProduct().getName());
+		
 	}
 }
