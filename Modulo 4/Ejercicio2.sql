@@ -1,0 +1,1 @@
+select * from BOOTCAMP.ANIMALS order by  id + 0 DESC
