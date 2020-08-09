@@ -2,6 +2,8 @@ package hibernate.menu;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -56,7 +58,8 @@ public class MenuDao {
 	public Menu getMenuById(String id) {
 
 		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-			return session.createQuery("from Menu m where m.id=:id ", Menu.class).setParameter("id", id).getSingleResult();
+			return session.createQuery("from Menu m where m.id=:id ", Menu.class).setParameter("id", id)
+					.getSingleResult();
 		}
 
 	}
@@ -99,6 +102,39 @@ public class MenuDao {
 			transaction.rollback();
 
 			e.printStackTrace();
+		}
+
+	}
+
+	public boolean existsMenu(String id) {
+
+		Transaction transaction = null;
+
+		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+			try {
+				if (session.createQuery("from Menu m where m.id=:id ", Menu.class).setParameter("id", id)
+						.getSingleResult() != null) {
+
+					return true;
+
+				} else {
+
+					return false;
+
+				}
+			} catch (NoResultException e) {
+				return false;
+			}
+
+		} catch (Exception e) {
+
+			transaction.rollback();
+
+			e.printStackTrace();
+
+			return false;
 		}
 
 	}

@@ -1,6 +1,7 @@
 package menu;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -68,6 +69,12 @@ public class TestMenu {
 		assertNotNull(menuDao.getMenuById("3"));
 		menuDao.removeMenu(menu3);
 		assertThrows(NoResultException.class, () -> menuDao.getMenuById("3"));
+	}
+	
+	@Test
+	void testExists() {
+		assertTrue(menuDao.existsMenu("1"));
+		assertFalse(menuDao.existsMenu("3"));
 	}
 	
 }

@@ -4,7 +4,7 @@ public class MenuMain {
 
 	public static void main(String[] args) {
 
-	MenuDao menuDao = new MenuDao();
+		MenuDao menuDao = new MenuDao();
 
 		Menu menu1 = new Menu("1", "Milanesa clasica", 500.0,
 				"una delicada milanesa con crocantes papas fritas finamente seleccionadas");
@@ -33,7 +33,13 @@ public class MenuMain {
 		menuDao.removeMenu(menu1);
 		System.out.println("Eliminando menu1..");
 		System.out.println(menuDao.getMenus());
-		
+
+		if (menuDao.existsMenu("3")) {
+			System.out.println("true");
+		} else {
+			System.out.println("false");
+		}
+
 		HibernateConfig.getSessionFactory().close();
 
 	}
