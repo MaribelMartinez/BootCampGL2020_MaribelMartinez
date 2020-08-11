@@ -1,8 +1,8 @@
 package patronesgl;
 
-public class LedApplance {
+public class LedAppliance {
 	
-	void turnOn() {
-		
+	public int turnOn(int power) {
+		return power - 100;
 	}
 }

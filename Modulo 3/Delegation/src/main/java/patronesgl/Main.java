@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		ElectricalOven electricalOven = new ElectricalOven();
+		ElectricalOven electricalOven = new ElectricalOven(new LedAppliance());
 		System.out.println(electricalOven.getPower());
 		
 
@@ -14,7 +14,7 @@ public class Main {
 		electricalOven.turnLed();
 		System.out.println(electricalOven.getPower());
 		
-		electricalOven.setConsumo(100);
+
 		
 	}
 }

@@ -1,23 +1,20 @@
 package patronesgl;
 
-public class ElectricalOven extends ElectricalApplicance {
+public class ElectricalOven extends ElectricalAppliance {
 
-	Integer consumo = 75;
-	LedApplance ledApplance;
+	private LedAppliance ledAppliance;
 	
-	public ElectricalOven() {
-		ledApplance = new LedApplance();
+	public ElectricalOven(LedAppliance ledApplicance) {
+		this.ledAppliance = ledApplicance;
 	}
 
 	@Override
 	void turnOn() {
-		super.setConsumo(75);
-		super.turnOn();
+		this.setPower(this.getPower() - 75);
 	}
 	
 	void turnLed() {
-		super.setConsumo(100);
-		super.turnOn();
+		this.setPower(ledAppliance.turnOn(this.power));
 	}
 
 }

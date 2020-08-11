@@ -1,16 +1,11 @@
 package patronesgl;
 
-public class ElectricalApplicance {
+public class ElectricalAppliance {
 	
-	private Integer power = 500;
-	private Integer consumo = 50;
+	protected Integer power;
 
-	public Integer getConsumo() {
-		return consumo;
-	}
-
-	public void setConsumo(Integer consumo) {
-		this.consumo = consumo;
+	public ElectricalAppliance() {
+		this.power = 500;
 	}
 
 	public Integer getPower() {
@@ -22,7 +17,7 @@ public class ElectricalApplicance {
 	}
 
 	void turnOn() {
-		power = power - this.consumo;
+		power = power - 50;
 	}
 
 }
