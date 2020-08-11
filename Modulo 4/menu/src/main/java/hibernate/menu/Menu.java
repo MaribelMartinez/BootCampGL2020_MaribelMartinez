@@ -24,7 +24,6 @@ public class Menu {
 
 
 	public Menu(String id, String nombre, Double precio, String descripcion) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
@@ -40,7 +39,6 @@ public class Menu {
 	}
 
 	public Menu() {
-		super();
 	}
 
 	public String getId() {

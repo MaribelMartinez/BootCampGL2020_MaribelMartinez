@@ -78,7 +78,11 @@ public class MenuDao {
 
 		} catch (Exception e) {
 
-			transaction.rollback();
+			if (transaction != null) {
+
+				transaction.rollback();
+
+			}
 
 			e.getStackTrace();
 		}
@@ -99,7 +103,11 @@ public class MenuDao {
 
 		} catch (Exception e) {
 
-			transaction.rollback();
+			if (transaction != null) {
+
+				transaction.rollback();
+
+			}
 
 			e.printStackTrace();
 		}
@@ -108,35 +116,23 @@ public class MenuDao {
 
 	public boolean existsMenu(String id) {
 
-		Transaction transaction = null;
-
 		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
 
-			transaction = session.beginTransaction();
-			try {
-				if (session.createQuery("from Menu m where m.id=:id ", Menu.class).setParameter("id", id)
-						.getSingleResult() != null) {
+			if (session.createQuery("from Menu m where m.id=:id ", Menu.class).setParameter("id", id)
+					.getSingleResult() != null) {
 
-					return true;
+				return true;
 
-				} else {
+			} else {
 
-					return false;
-
-				}
-			} catch (NoResultException e) {
 				return false;
 			}
 
-		} catch (Exception e) {
-
-			transaction.rollback();
-
-			e.printStackTrace();
+		} catch (NoResultException e) {
 
 			return false;
-		}
 
+		}
 	}
 
 }
