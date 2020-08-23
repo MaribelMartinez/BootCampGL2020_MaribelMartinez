@@ -1,5 +1,6 @@
 package com.globallogic.bootcampgl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,8 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class App {
 
 	public static void main(String[] args) {
-		Customer customer = new Customer("Jose Perez", 234567890, 12342);
-				System.out.println(customer);
+	
+		CustomerController customerController = new CustomerController();
+		customerController.getCustomer();
 		SpringApplication.run(App.class, args);
 	}
 	

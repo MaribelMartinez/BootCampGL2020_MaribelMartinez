@@ -7,9 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OrderApplication {
 
 	public static void main(String[] args) {
-		Order order = new Order("C-00221", 12342, 1000);
-		order.getNewOrder(order);
-		System.out.println(order.getOrder());
+		OrderService orderService = new OrderService();
+		System.out.println(orderService.getOrder());
 		SpringApplication.run(OrderApplication.class, args);
 	}
 

@@ -35,6 +35,7 @@ public class HibernateConfig {
 				configuration.setProperties(settings);
 
 				configuration.addAnnotatedClass(Menu.class);
+				configuration.addAnnotatedClass(Plato.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 

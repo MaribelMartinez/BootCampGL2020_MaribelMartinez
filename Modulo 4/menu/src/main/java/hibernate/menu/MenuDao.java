@@ -7,8 +7,44 @@ import javax.persistence.NoResultException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+
 public class MenuDao {
 
+	public void createPlato(Plato plato) {
+
+		Transaction transaction = null;
+
+		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			session.save(plato);
+
+			transaction.commit();
+
+		} catch (Exception e) {
+
+			if (transaction != null) {
+
+				transaction.rollback();
+
+			}
+
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public List<Plato> getPlatos() {
+
+		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+
+			return session.createQuery("from Plato", Plato.class).list();
+
+		}
+	}
+	
 	public void createMenu(Menu menu) {
 
 		Transaction transaction = null;
@@ -34,6 +70,7 @@ public class MenuDao {
 
 	}
 
+	
 	public List<Menu> getMenus() {
 
 		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
@@ -60,6 +97,14 @@ public class MenuDao {
 		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
 			return session.createQuery("from Menu m where m.id=:id ", Menu.class).setParameter("id", id)
 					.getSingleResult();
+		}
+
+	}
+	
+	public Plato getPlatoById(String id) {
+
+		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+			return session.createQuery("from Plato m where m.id=:id ", Plato.class).setParameter("id", id).getSingleResult();
 		}
 
 	}
@@ -114,6 +159,33 @@ public class MenuDao {
 
 	}
 
+	
+	
+	public void removePlato(Plato plato) {
+
+		Transaction transaction = null;
+
+		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+
+			transaction = session.beginTransaction();
+
+			session.remove(plato);
+
+			transaction.commit();
+
+		} catch (Exception e) {
+
+			if (transaction != null) {
+
+				transaction.rollback();
+
+			}
+
+			e.printStackTrace();
+		}
+
+	}
+	
 	public boolean existsMenu(String id) {
 
 		try (Session session = HibernateConfig.getSessionFactory().openSession()) {
@@ -134,5 +206,7 @@ public class MenuDao {
 
 		}
 	}
+	
+	
 
 }

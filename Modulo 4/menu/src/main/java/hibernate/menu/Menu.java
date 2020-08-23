@@ -1,8 +1,13 @@
 package hibernate.menu;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,30 +18,8 @@ public class Menu {
 	@Column(name = "id")
 	private String id;
 
-	@Column(name = "nombre")
-	private String nombre;
-	
-	@Column(name = "precio")
-	private Double precio;
-
-	@Column(name = "descripcion")
-	private String descripcion;
-
-
-	public Menu(String id, String nombre, Double precio, String descripcion) {
-		this.id = id;
-		this.nombre = nombre;
-		this.precio = precio;
-		this.descripcion = descripcion;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+	@OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Plato> platos;
 
 	public Menu() {
 	}
@@ -48,27 +31,19 @@ public class Menu {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public Double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(Double precio) {
-		this.precio = precio;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	
+	public List<Plato> getPlatos(){
+		return platos;
+		
 	}
 	
+	public void setPlatos(List<Plato> platos) {
+		this.platos = platos;
+	}
+
+
 	public String toString() {
-		return "Nombre: "+ nombre + 
-				" \nDescripcion: " + descripcion + 
-				" \nPrecio: " + precio +"\n";
+		return "Menu: "+ platos;
 	}
 
 }
