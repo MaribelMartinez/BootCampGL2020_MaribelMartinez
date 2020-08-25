@@ -1,6 +1,7 @@
 package ar.com.gl.bootcampgl.vehiculo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class VehiculoService {
 	
 	public List<Vehiculo> getVehiculos(){
 		return vehiculoRepository.findAll();
+	}
+	
+	public Optional<Vehiculo> getVehiculoById(Integer codigo){
+		return vehiculoRepository.findByCodigo(codigo);
 	}
 
 }

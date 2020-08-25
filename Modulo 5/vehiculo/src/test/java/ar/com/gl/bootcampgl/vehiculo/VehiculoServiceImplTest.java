@@ -1,12 +1,14 @@
 package ar.com.gl.bootcampgl.vehiculo;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.lenient;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,6 +42,7 @@ public class VehiculoServiceImplTest {
 	VehiculoService vehiculoService;
 	
 	Vehiculo vehiculo;
+	Optional<Vehiculo> oVehiculo;
 	
 	TipoVehiculo tipoVehiculo;
 	
@@ -49,10 +52,12 @@ public class VehiculoServiceImplTest {
 	void setUp() {
 		tipoVehiculo = new TipoVehiculo();
 		tipoVehiculo.setCodigo(1);
-		
+	
 		modelo = new Modelo();
 		modelo.setCodigo(1);
 		vehiculo = new Vehiculo(90, "identification", tipoVehiculo ,modelo, new Date());
+		
+		oVehiculo = Optional.of(vehiculo);
 	}
 	
 	@Test
@@ -60,10 +65,14 @@ public class VehiculoServiceImplTest {
 	public void createVehicle() {
 		
 		lenient().when(vehiculoRepository.save(vehiculo)).thenReturn(vehiculo);
+		lenient().when(vehiculoRepository.findByCodigo(90)).thenReturn(oVehiculo);
 		
 		lenient().when(modelService.create(modelo)).thenReturn(modelo);
 		lenient().when(tipoVehiculoService.create(tipoVehiculo)).thenReturn(tipoVehiculo);
+		
 		Vehiculo vehiculoCreado = vehiculoService.create(vehiculo);
+		
+		assertTrue(vehiculoService.getVehiculoById(90).isPresent());
 		assertEquals(vehiculo, vehiculoCreado);
 		assertNotNull(vehiculoCreado);
 	}
@@ -78,6 +87,7 @@ public class VehiculoServiceImplTest {
 		
 		lenient().when(vehiculoRepository.findAll()).thenReturn(vehiculos);
 		
+		assertTrue(vehiculoService.getVehiculos().size() == 2);
 		assertEquals(vehiculos, vehiculoService.getVehiculos());
 		assertNotNull(vehiculoService.getVehiculos());
 		
