@@ -1,22 +1,24 @@
 package com.globallogic.bootcampgl;
 
-import org.springframework.beans.factory.annotation.Configurable;
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@EntityScan
-@ConfigurationProperties("in")
-public class Customer implements CommandLineRunner{
+@Component
+public class Customer{
 	
+	@Value("${in.name}")
 	private String name;
+	
+	@Value("${in.dni}")
 	private Integer dni;
+	
+	@Value("${in.id}")
 	private Integer id;
 	
 	public Customer() {
+		System.out.println(this.name);
 	}
 
 	public String toString() {
@@ -53,5 +55,8 @@ public class Customer implements CommandLineRunner{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+
 
 }

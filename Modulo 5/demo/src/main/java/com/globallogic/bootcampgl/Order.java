@@ -3,11 +3,16 @@ package com.globallogic.bootcampgl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+@Component
 public class Order extends OrderFactory{
 	
-	
+	@Value("${in.product}")
 	private String product;
+	
+	@Value("${in.customer}")
 	private Integer customer;
+	
+	@Value("${in.count}")
 	private Integer count;
 	
 	public Order(String product, Integer customer, Integer count) {
