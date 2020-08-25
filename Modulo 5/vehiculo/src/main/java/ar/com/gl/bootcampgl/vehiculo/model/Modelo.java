@@ -22,9 +22,9 @@ public class Modelo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
 	
-	@Column(name = "marca")
+	@Column(name = "marca", nullable = false)
 	private String marca;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
 }
