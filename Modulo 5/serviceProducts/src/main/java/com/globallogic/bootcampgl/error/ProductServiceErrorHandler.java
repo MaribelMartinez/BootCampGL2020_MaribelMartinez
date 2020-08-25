@@ -14,11 +14,11 @@ public class ProductServiceErrorHandler {
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<Object> handleHttpMessageNotReadableException(final HttpMessageNotReadableException exception) {
-		return new ResponseEntity<>("ERROR MENSAJE MAL FORMADO", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ResponseError("ERROR MENSAJE MAL FORMADO", "400", "/products"), HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Object> handleHttpMessageNotReadableException(final MethodArgumentNotValidException exception) {
-		return new ResponseEntity<>("ERROR EN DATOS ESPERADOS", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ResponseError("ERROR EN DATOS ESPERADOS", "400", "/products"), HttpStatus.BAD_REQUEST);
 	}
 }
