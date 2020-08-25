@@ -1,5 +1,7 @@
 package com.globallogic.bootcampgl.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ProductDTO {
+	@NotBlank
     private String id;
+	
+	@NotBlank
     private String name;
 
     public String getId() {
