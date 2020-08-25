@@ -19,8 +19,8 @@ public class VehiculoController {
 	
 	@PostMapping(value = "/vehiculos")
 	public ResponseEntity<Object> createVehiculo(@RequestBody Vehiculo vehiculo){
-		vehiculoService.create(vehiculo);
-		return new ResponseEntity<>("Vehiculo creado con exito", HttpStatus.CREATED);
+		
+		return new ResponseEntity<>(vehiculoService.create(vehiculo), HttpStatus.CREATED);
 	}
 	
 	@GetMapping(value = "/vehiculos")
