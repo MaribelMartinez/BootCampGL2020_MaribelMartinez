@@ -21,7 +21,7 @@ public class CarreraController {
 	@PostMapping(value = "/carreras")
 	public ResponseEntity<Object> create(@RequestBody Carrera carrera) {
 		carreraService.create(carrera);
-		return new ResponseEntity<>("Carrera creada", HttpStatus.CREATED);
+		return new ResponseEntity<>(carrera, HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/carreras/{id}")
