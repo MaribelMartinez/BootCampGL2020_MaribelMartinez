@@ -1,6 +1,7 @@
 package com.api.cliente.cliente.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,31 +28,31 @@ public class ClienteController {
 	@Autowired
 	ClienteService clienteService;
 	
-//	@ApiOperation(value = "create cliente", response = Cliente.class)
+	@ApiOperation(value = "create cliente", response = Cliente.class)
 	@PostMapping(value="/clientes")
 	public ResponseEntity<Object> create(@RequestBody Cliente cliente){
 		return new ResponseEntity<>(clienteService.create(cliente), HttpStatus.CREATED);
 	}
 	
-	//@ApiOperation(value = "return cliente by id", response = Cliente.class)
+	@ApiOperation(value = "return cliente by id", response = Cliente.class)
 	@GetMapping(value = "/clientes/{id}")
 	public ResponseEntity<Object> get(@PathVariable("id") Integer id){
 		return new ResponseEntity<>(clienteService.getCliente(id), HttpStatus.OK);
 	}
 	
-	//@ApiOperation(value = "return all clientes", response = Cliente.class, responseContainer = "List")
+	@ApiOperation(value = "return all clientes", response = Cliente.class, responseContainer = "List")
 	@GetMapping(value="/clientes")
 	public ResponseEntity<Object> getAll(){
 		return new ResponseEntity<>(clienteService.getClientes(), HttpStatus.OK);
 	}
 	
-	//@ApiOperation(value = "update cliente", response = Cliente.class)
+	@ApiOperation(value = "update cliente", response = Cliente.class)
 	@PutMapping(value="/clientes")
 	public ResponseEntity<Object> update(@RequestBody Cliente cliente){
 		return new ResponseEntity<>(clienteService.update(cliente), HttpStatus.OK);
 	}
 	
-	//@ApiResponses(value = {@ApiResponse(code=200,message = "Cliente borrado con exito")})
+	@ApiResponses(value = {@ApiResponse(code=200,message = "Cliente borrado con exito")})
 	@DeleteMapping(value="/clientes/{id}")
 	public ResponseEntity<Object> delete(@PathVariable("id") Integer id){
 		clienteService.delete(id);

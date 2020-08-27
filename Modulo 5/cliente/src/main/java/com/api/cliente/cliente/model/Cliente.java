@@ -5,21 +5,25 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.RepresentationModel;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
+@RestResource(rel="customers", path="customer")
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente{
 	
 	@Id
-	private Integer id;
 	@Column
 	private Integer DNI;
 	@Column
@@ -30,5 +34,6 @@ public class Cliente {
 	private Integer telefono;
 	@Column
 	private String correoElectronico;
+	
 
 }
