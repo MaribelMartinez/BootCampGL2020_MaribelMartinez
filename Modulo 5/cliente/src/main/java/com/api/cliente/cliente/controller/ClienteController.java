@@ -1,10 +1,14 @@
 package com.api.cliente.cliente.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.cliente.cliente.model.Cliente;
 import com.api.cliente.cliente.service.ClienteService;
-
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Controller
+@RestController
 //@Api(value = "Cliente Controller")
 public class ClienteController {
 	
@@ -30,26 +32,58 @@ public class ClienteController {
 	
 	@ApiOperation(value = "create cliente", response = Cliente.class)
 	@PostMapping(value="/clientes")
-	public ResponseEntity<Object> create(@RequestBody Cliente cliente){
-		return new ResponseEntity<>(clienteService.create(cliente), HttpStatus.CREATED);
+	public EntityModel<Cliente> create(@RequestBody Cliente cliente){
+		Cliente cli = clienteService.update(cliente);
+		Link link = WebMvcLinkBuilder
+				.linkTo(Cliente.class).slash("clientes/"+cli.getDNI()).withSelfRel();
+;
+		EntityModel<Cliente> resource = new EntityModel<Cliente>(cli);
+		resource.add(link);
+	
+		//cliente.add(Link.valueOf("http://localhost:8080"+cliente.getDNI()));
+		
+		return resource;
+	//	return new ResponseEntity<>(resource, HttpStatus.CREATED);
+		
 	}
+	
 	
 	@ApiOperation(value = "return cliente by id", response = Cliente.class)
 	@GetMapping(value = "/clientes/{id}")
-	public ResponseEntity<Object> get(@PathVariable("id") Integer id){
-		return new ResponseEntity<>(clienteService.getCliente(id), HttpStatus.OK);
+	public EntityModel<Cliente> get(@PathVariable("id") Integer id){
+		Cliente cli = clienteService.getCliente(id);
+		Link link = WebMvcLinkBuilder
+				.linkTo(Cliente.class).slash("clientes/"+cli.getDNI()).withSelfRel();
+;
+		EntityModel<Cliente> resource = new EntityModel<Cliente>(cli);
+		resource.add(link);
+		return resource;
 	}
 	
 	@ApiOperation(value = "return all clientes", response = Cliente.class, responseContainer = "List")
 	@GetMapping(value="/clientes")
-	public ResponseEntity<Object> getAll(){
-		return new ResponseEntity<>(clienteService.getClientes(), HttpStatus.OK);
+	public ResponseEntity<List<EntityModel<Cliente>>> getAll(){
+		List<EntityModel<Cliente>> resources = new ArrayList<EntityModel<Cliente>>();
+		for(Cliente cliente : clienteService.getClientes()) {
+			Link link = WebMvcLinkBuilder
+					.linkTo(Cliente.class).slash("clientes/"+cliente.getDNI()).withSelfRel();
+			EntityModel<Cliente> resource = new EntityModel<Cliente>(cliente);
+			resource.add(link);
+			resources.add(resource);
+		}		
+		return new ResponseEntity<>(resources, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "update cliente", response = Cliente.class)
 	@PutMapping(value="/clientes")
-	public ResponseEntity<Object> update(@RequestBody Cliente cliente){
-		return new ResponseEntity<>(clienteService.update(cliente), HttpStatus.OK);
+	public EntityModel<Cliente> update(@RequestBody Cliente cliente){
+		Cliente cli = clienteService.update(cliente);
+		Link link = WebMvcLinkBuilder
+				.linkTo(Cliente.class).slash("clientes/"+cli.getDNI()).withSelfRel();
+;
+		EntityModel<Cliente> resource = new EntityModel<Cliente>(cli);
+		resource.add(link);
+		return resource;
 	}
 	
 	@ApiResponses(value = {@ApiResponse(code=200,message = "Cliente borrado con exito")})

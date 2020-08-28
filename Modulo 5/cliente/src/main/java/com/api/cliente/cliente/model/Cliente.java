@@ -19,9 +19,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@RestResource(rel="customers", path="customer")
 @Table(name = "cliente")
-public class Cliente{
+public class Cliente extends RepresentationModel<Cliente>{
 	
 	@Id
 	@Column
